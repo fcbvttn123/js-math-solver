@@ -23,9 +23,20 @@ function validInputValue(inputString) {
     // Define a regular expression pattern that matches either a digit or (
     let pattern2 = /^[0-9(]$/;
     // Define a regular expression pattern that matches either a digit or )
-        let pattern3 = /^[0-9)]$/;
+    let pattern3 = /^[0-9)]$/;
+    // Valid Characters before and after operators
+    let valid = true 
+    inputString.split("").forEach((c, i) => {
+        if(c == "+" || c == "-" || c == "*" || c == "/") {
+            let beforeChar = inputString[i-1]
+            let afterChar = inputString[i+1]
+            if(isNaN(beforeChar) || isNaN(afterChar)) {
+                v = false
+            }
+        }
+    })
     // Use test method to check if the input string matches the pattern
-    return pattern.test(inputString) && pattern2.test(inputString[0]) && pattern3.test(inputString[inputString.length-1]);
+    return pattern.test(inputString) && pattern2.test(inputString[0]) && pattern3.test(inputString[inputString.length-1]) && valid;
 }
 
 
@@ -41,7 +52,7 @@ function removeSpaces(inputString) {
 
 
 
-// 1 + 2.5 * 3 / 4
+// 1 + 2 * 3 / 4
 // Do mul and div expression first 
 // Check if the expression has * or / character for
 // Do the calculation 
@@ -69,8 +80,6 @@ function mulDivCalculation(inputString) {
     return inputString
 }
 
-// Check the operator and do the calculation 
-// Update the expression after the calculation and return the updated expression. For example: 1 + 2 * 3 / 4 --> 1+6/4
 function doCalAndReplace(fOperand, sOperand, operator, originalString) {
     let r = null
     if(operator == "*") {
