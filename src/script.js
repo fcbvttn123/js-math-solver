@@ -8,8 +8,8 @@ HTMLForm.addEventListener("submit", e => {
     if(!inputValueIsValid) {
         return
     }
-    textBoxValue = mulDivCalculation(textBoxValue)
     console.log(textBoxValue)
+    textBoxValue = mulDivCalculation(textBoxValue)
 })
 
 
@@ -31,7 +31,7 @@ function validInputValue(inputString) {
             let beforeChar = inputString[i-1]
             let afterChar = inputString[i+1]
             if(isNaN(beforeChar) || isNaN(afterChar)) {
-                v = false
+                valid = false
             }
         }
     })
@@ -89,6 +89,21 @@ function doCalAndReplace(fOperand, sOperand, operator, originalString) {
     }
     originalString = originalString.replace(`${fOperand}${operator}${sOperand}`, r)
     return originalString
+}
+
+function getFirstOperand(expression, operatorIndex) {
+    let firstOperand = []
+    let secondOperand = []
+    operatorIndex = operatorIndex-1
+    for(let i = operatorIndex; i >= 0; i--) {
+        let c = expression[i]
+        if(!isNaN(c)) {
+            firstOperand.push(c)
+        } else {
+            console.log(firstOperand)
+            break
+        }
+    }
 }
 
 
